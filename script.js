@@ -1,5 +1,6 @@
 import './styles.scss';
 import { movies } from './src/movies';
+import { tns } from './node_modules/tiny-slider/src/tiny-slider';
 
 const displayJackets = (arr, htmlEl) => {
   arr.forEach((item, index) => {
@@ -36,105 +37,105 @@ const getRandomMovie = (arr) => {
   return arr[randomIndex];
 };
 
+// Slider
+const mySlider = document.getElementById('slider');
+
+const moviesInSlider = [];
+for (let i = 0; i < 10; i++) {
+  const randomMovie = getRandomMovie(movies);
+  if (randomMovie.img) {
+    moviesInSlider.push(`
+      <div class="slider-item movie" id="slider-movie-${i}">
+        <img src="images/${randomMovie.imdb}.jpg" />
+      </div>
+  `);
+  } else {
+    moviesInSlider.push(`
+      <div class="slider-item slider-item-no-img movie" id="slider-movie-${i}">
+        <h3>${randomMovie.title}</h3>
+      </div>
+  `);
+  }
+}
+moviesInSlider.forEach((jacketMovie) => {
+  mySlider.innerHTML += jacketMovie;
+});
+
 /* -- RENDERING -- */
 const render = (arr, selectedGenre, selectedNoteFilter) => {
   const app = document.getElementById('app');
-  app.innerHTML = `
-    <h1>hackerflix</h1>
-  `;
-
-  // Carousel
-  let slider = '<div class="slider">';
-  for (let i = 0; i < 10; i++) {
-    const randomMovie = getRandomMovie(movies);
-    if (randomMovie.img) {
-      slider += `
-        <div class="slider-item movie" id="slider-movie-${i}">
-          <img src="images/${randomMovie.imdb}.jpg" />
-        </div>
-    `;
-    } else {
-      slider += `
-        <div class="no-bg-img slider-item movie" id="slider-movie-${i}">
-          <h3>${randomMovie.title}</h3>
-        </div>
-    `;
-    }
-  }
-  slider += '</div>';
-  app.innerHTML += slider;
 
   // Button to display only recent movies
   let btns = `
-  <div class="btns-container">
-    <button class="btn-recent" id="btn-recent">recent only</button>
-    <div class="select-container">
-      <label for="genre-filter">Sort by genre :</label>
-      <select class="genre-filter" id="genre-filter">`;
-  // Options of the sort by genre select
+    <div class="btns-container">
+      <button class="btn-recent" id="btn-recent">recent only</button>
+      <div class="select-container">
+        <label for="genre-filter">Sort by genre :</label>
+        <select class="genre-filter" id="genre-filter">`;
+    // Options of the sort by genre select
   if (selectedGenre === '_all') {
     btns += `
-      <option value="_all" selected>See All</option>
-    `;
+        <option value="_all" selected>See All</option>
+      `;
   } else {
     btns += `
-      <option value="_all">See All</option>
-    `;
+        <option value="_all">See All</option>
+      `;
   }
   genresList.forEach((genre) => {
     if (genre === selectedGenre) {
       btns += `
-        <option value="${genre}" id="option-${genre}" selected>${genre}</option>
-      `;
+          <option value="${genre}" id="option-${genre}" selected>${genre}</option>
+        `;
     } else {
       btns += `
-        <option value="${genre}" id="option-${genre}">${genre}</option>
-      `;
+          <option value="${genre}" id="option-${genre}">${genre}</option>
+        `;
     }
   });
 
   btns += `
-      </select>
-    </div>
-      <div class="select-container">
-        <label for="note-filter">Sort by note :</label>
-        <select class="note-filter" id="note-filter">`;
+        </select>
+      </div>
+        <div class="select-container">
+          <label for="note-filter">Sort by note :</label>
+          <select class="note-filter" id="note-filter">`;
   if (selectedNoteFilter === '_none') {
     btns += `
-      <option value="_none" selected>Not sorted</option>
-    `;
+        <option value="_none" selected>Not sorted</option>
+      `;
   } else {
     btns += `
-      <option value="_none">Not sorted</option>
-    `;
+        <option value="_none">Not sorted</option>
+      `;
   }
   if (selectedNoteFilter === 'decreasing') {
     btns += `
-      <option value="decreasing" selected>decreasing</option>
-    `;
+        <option value="decreasing" selected>decreasing</option>
+      `;
   } else {
     btns += `
-      <option value="decreasing">decreasing</option>
-    `;
+        <option value="decreasing">decreasing</option>
+      `;
   }
   if (selectedNoteFilter === 'increasing') {
     btns += `
-      <option value="increasing" selected>increasing</option>
-    `;
+        <option value="increasing" selected>increasing</option>
+      `;
   } else {
     btns += `
-      <option value="increasing">increasing</option>
-    `;
+        <option value="increasing">increasing</option>
+      `;
   }
   btns += `
-        </select>
+          </select>
+        </div>
       </div>
-    </div>
-  `;
+    `;
   app.innerHTML += `
-    ${btns}
-    <section class="movies" id="movies">
-  `;
+      ${btns}
+      <section class="movies" id="movies">
+    `;
 
   // Displays the jackets
   const sectionMovies = document.getElementById('movies');
@@ -143,10 +144,10 @@ const render = (arr, selectedGenre, selectedNoteFilter) => {
   app.innerHTML += '</section>';
   // Create the modal's container
   const popup = `
-  <div class="modal">
-      <div class="modal-content"></div>
-  </div>
-`;
+    <div class="modal">
+        <div class="modal-content"></div>
+    </div>
+  `;
   app.innerHTML += popup;
 
   /* -- EVENTS -- */
@@ -165,27 +166,27 @@ const render = (arr, selectedGenre, selectedNoteFilter) => {
       const modalContent = document.querySelector('.modal-content');
       // Add content to the modal
       modalContent.innerHTML = `
-      <i class="fa fa-times close-icon" aria-hidden="true"></i>
-      <h2 class="modal-title">${arr[movieId].title}</h2>
-      <ul>
-          <li>
-              <span class="modal-element">Genres :</span>
-              <p class="modal-element-data">${genres}</p>
-          </li>
-          <li>
-            <span class="modal-element">Year :</span>
-            <p class="modal-element-data">${arr[movieId].year}</p>
-          </li>
-          <li>
-            <span class="modal-element">Note :</span>
-            <p class="modal-element-data">${arr[movieId].note}/10</p>
-          </li>
-          <li>
-            <span class="modal-element">Plot :</span>
-            <p class="modal-element-data">${arr[movieId].plot}</p>
-          </li>
-      </ul>
-      `;
+        <i class="fa fa-times close-icon" aria-hidden="true"></i>
+        <h2 class="modal-title">${arr[movieId].title}</h2>
+        <ul>
+            <li>
+                <span class="modal-element">Genres :</span>
+                <p class="modal-element-data">${genres}</p>
+            </li>
+            <li>
+              <span class="modal-element">Year :</span>
+              <p class="modal-element-data">${arr[movieId].year}</p>
+            </li>
+            <li>
+              <span class="modal-element">Note :</span>
+              <p class="modal-element-data">${arr[movieId].note}/10</p>
+            </li>
+            <li>
+              <span class="modal-element">Plot :</span>
+              <p class="modal-element-data">${arr[movieId].plot}</p>
+            </li>
+        </ul>
+        `;
       // Get the (all) modal
       const modal = document.querySelector('.modal');
       // Make it visible
@@ -258,35 +259,20 @@ const render = (arr, selectedGenre, selectedNoteFilter) => {
       render(movies, genreSelected, noteFilterSelected);
     }
   });
-
-  // Slider function
-  const sliderAction = () => {
-    const visibleMovies = [];
-    const sliderItems = document.querySelectorAll('.slider-item');
-    sliderItems.forEach((item) => {
-      const id = item.id.split('-')[2];
-      if (id < 3) {
-        item.classList.add('show');
-        visibleMovies.push(item);
-      }
-    });
-    let newMovieIndex = 0;
-    setInterval(() => {
-      visibleMovies.forEach((movie, index) => {
-        const id = Number(movie.id.split('-')[2]);
-        if (id < sliderItems.length - 1) {
-          newMovieIndex = id + 1;
-        } else if (id === sliderItems.length - 1) {
-          newMovieIndex = 0;
-        }
-        movie.classList.remove('show');
-        visibleMovies[index] = sliderItems[newMovieIndex];
-      });
-      visibleMovies.forEach((movie) => {
-        movie.classList.add('show');
-      });
-    }, 6000);
-  };
-  sliderAction();
 };
 render(movies, '_all', '_none');
+
+const slider = tns({
+  container: '.my-slider',
+  mode: 'gallery',
+  autoplay: true,
+  controls: false,
+  nav: false,
+  autoplayButtonOutput: false,
+  loop: true,
+  autoplayTimeout: 5500,
+  speed: 700,
+  slideBy: 1,
+  items: 3,
+  gutter: 5,
+});
