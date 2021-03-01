@@ -63,7 +63,7 @@ moviesInSlider.forEach((jacketMovie) => {
 
 /* -- RENDERING -- */
 const render = (arr, selectedGenre, selectedNoteFilter) => {
-  const app = document.getElementById('app');
+  const app = document.getElementById('section-app');
 
   // Button to display only recent movies
   let btns = `
@@ -132,7 +132,7 @@ const render = (arr, selectedGenre, selectedNoteFilter) => {
         </div>
       </div>
     `;
-  app.innerHTML += `
+  app.innerHTML = `
       ${btns}
       <section class="movies" id="movies">
     `;
@@ -201,8 +201,12 @@ const render = (arr, selectedGenre, selectedNoteFilter) => {
     });
   });
 
-  // Recent btn
+  // Btn & select element
   const btnRecent = document.getElementById('btn-recent');
+  const genresFilter = document.getElementById('genre-filter');
+  const noteFilter = document.getElementById('note-filter');
+
+  // Recent btn
   btnRecent.addEventListener('click', () => {
     const yearSort = (item) => {
       if (item.year >= 2000) {
@@ -210,24 +214,22 @@ const render = (arr, selectedGenre, selectedNoteFilter) => {
       }
     };
     const recentMovies = arr.filter(yearSort);
-    render(recentMovies);
+    render(recentMovies, genresFilter.value, noteFilter.value);
   });
 
   // Genres filter
-  const genresFilter = document.getElementById('genre-filter');
   genresFilter.addEventListener('change', () => {
     const genreSelected = genresFilter.value;
     if (genresList.includes(genreSelected)) {
       const genreSort = (item) => item.genres.includes(genreSelected);
       const moviesSorted = movies.filter(genreSort);
-      render(moviesSorted, genreSelected);
+      render(moviesSorted, genreSelected, noteFilter.value);
     } else {
-      render(movies);
+      render(movies, '_all', noteFilter.value);
     }
   });
 
   // Note filter
-  const noteFilter = document.getElementById('note-filter');
   noteFilter.addEventListener('change', () => {
     // Value of the select to sort by note
     const noteFilterSelected = noteFilter.value;
