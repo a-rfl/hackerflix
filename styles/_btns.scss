@@ -5,7 +5,8 @@
   width: 65%;
   margin: 0 auto 10px auto;
   color: $primary-color;
-  button, select {
+  button,
+  select {
     border: 1.5px solid $light-color;
     border-radius: 5px;
     background-color: $dark2-color;
@@ -15,16 +16,57 @@
     font-size: 13px;
     box-shadow: 0px 0px 2px #095a09, 0px 0px 8px #138b13;
     &:hover {
-        color: $primary-color;
-        border-color: $primary-color;
+      color: $primary-color;
+      border-color: $primary-color;
     }
   }
   button:hover {
     transform: scale(1.025);
   }
-  .select-container {
+  button {
+    height: 30px;
+  }
+}
+
+@media only screen and (max-width: 992px) {
+  .btns-container {
+    align-items: flex-end;
+    button,
+    select {
+      border-radius: 8px;
+      padding: 5px 10px;
+      font-size: 13px;
+      width: 125px;
+    }
+    .select-container {
+      width: 125px;
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .btns-container {
+    width: 95%;
+    button,
+    select {
+      border: 1px solid $light-color;
+      border-radius: 10px;
+      padding: 3px 5px;
+      font-size: 11px;
+      width: 115px;
+    }
+    button {
+      margin-right: 12px;
+    }
+    .select-container {
       label {
-          margin: 0 5px;
+        margin: 0;
+        width: 115px;
+        font-size: 12px;
       }
+    }
+    .note-filter {
+      width: 90px;
+    }
   }
 }
