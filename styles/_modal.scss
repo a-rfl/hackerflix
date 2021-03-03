@@ -53,3 +53,50 @@
     }
   }
 }
+
+@media only screen and (max-width: 992px) {
+  .modal {
+    width: 375px;
+    font-size: 15px;
+    .modal-content {
+      padding: 10px;
+      h2 {
+        margin: 10px auto;
+        width: 75%;
+        border-width: 2px 0 2px 0;
+      }
+      ul {
+        li {
+          margin: 5px 0;
+          .modal-element {
+            font-size: 16px;
+          }
+          p.modal-element-data {
+            margin-left: 40px;
+          }
+        }
+      }
+    }
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .modal {
+    width: 300px;
+    font-size: 13px;
+    .modal-content {
+      padding: 5px;
+      ul {
+        li {
+          margin: 3px 0;
+          .modal-element {
+            font-size: 15px;
+          }
+          p.modal-element-data {
+            margin-left: 30px;
+          }
+        }
+      }
+    }
+  }
+}
