@@ -7,13 +7,13 @@ const displayJackets = (arr, htmlEl) => {
     if (item.img) {
       htmlEl.innerHTML += `
           <div class="movie" id="movie-${index}">
-              <img src="images/${item.imdb}.jpg" />
+              <img src="images/${item.imdb}.jpg" alt="Jacket du film : ${item.title}" loading="lazy" />
           </div>
           `;
     } else {
       htmlEl.innerHTML += `
       <div class="no-bg-img movie" id="movie-${index}">
-          <h3>${item.title}</h3>
+          <h2>${item.title}</h2>
       </div>
       `;
     }
@@ -46,7 +46,7 @@ for (let i = 0; i < 10; i++) {
   if (randomMovie.img) {
     moviesInSlider.push(`
       <div class="slider-item movie" id="slider-movie-${i}">
-        <img src="images/${randomMovie.imdb}.jpg" />
+        <img src="images/${randomMovie.imdb}.jpg" alt="Jacket du film : ${randomMovie.title}" loading="lazy" />
       </div>
   `);
   } else {
