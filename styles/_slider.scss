@@ -5,8 +5,10 @@
   background-color: $dark2-color;
   box-shadow: 0px 0px 5px #095a09, 0px 0px 8px #138b13;
   .slider-item {
+    width: 158px;
     height: 250px;
     img {
+      width: 158px;
       height: 250px;
       object-fit: cover;
     }
@@ -15,6 +17,8 @@
     background-color: $dark1-color;
     border: 2.5px solid $secondary-color;
     border-collapse: collapse;
+    width: 158px !important;
+    margin: auto;
     h3 {
       position: absolute;
       top: 50%;
@@ -32,11 +36,16 @@
     width: 65%;
     padding: 10px 15px;
     .slider-item {
+      width: 108px;
       height: 200px;
       img {
+        width: 108px;
         height: 200px;
         width: auto;
       }
+    }
+    .slider-item-no-img {
+      width: 110px !important;
     }
   }
 }
@@ -46,8 +55,10 @@
     width: 70%;
     padding: 15px;
     .slider-item {
+      width: 120px;
       height: 175px;
       img {
+        width: 120px;
         height: 175px;
       }
     }
@@ -64,8 +75,10 @@
     width: 100%;
     padding: 15px 10px;
     .slider-item {
+      width: 83px;
       height: 125px;
       img {
+        width: 83px;
         height: 125px;
       }
     }
